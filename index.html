@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/Bootstrap-theme.css"> -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><strong>Crystal Game</strong></h1>
+			<h4 class="text-center">Diamonds are anyone's best friend</h4>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-5" >
+				<div class="row">
+					<h3 class="text-center">Crystals</h3>
+				</div>
+				<!-- treepic -->
+				<div id="ruby" class="img">
+					<img src="assets">
+				</div>
+			</div>
+			<div class="col-lg-7 margTop">
+				<div class="panel panel-default">
+					<!-- instructions -->
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Instructions
+						</h3>
+					</div>
+					<div class="panel-body text-center">
+						<p>Choose a letter! (letters are chosen by hitting keys)</p>
+						<p>You are allowed 8 missed letters</p>
+					</div>
+				</div>
+				<!-- current word -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Current Word
+						</h3>
+					</div>
+					<div class="panel-body text-center" id="word">
+						_ _ _ _ _ will all go here
+					</div>
+				</div>
+				<!-- used letters -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Used letters
+						</h3>
+					</div>
+					<div class="panel-body text-center" id="usedLetters">
+						used letters
+						
+					</div>
+				</div>
+				<!-- used letters -->
+				<div class="row"></div>
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title text-center">
+									Total Guesses
+								</h3>
+							</div>
+							<div class="panel-body text-center" id="guess">
+								guess
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title text-center">
+									Total Wins
+								</h3>
+							</div>
+							<div class="panel-body text-center" id="win">
+								Winner Winner
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		// Crystal Game
+		// vars 
+			// number to get 19 - 120
+			// number you have
+			// random numbers for crystal value 1 - 12
+			// wins
+
+		// 1
+		// assign crystals random number
+		// on click to crystals add random number to user
+			// if higher than goal lose
+			// if lower the goal goto 1
+
+		var crystal = {
+			numGoal: 0,
+			numUser: 0,
+			numCrys1: 0,
+			numCrys2: 0,
+			numCrys3: 0,
+			numCrys4: 0,
+			wins: 0,
+
+			randomNumber: function(min, max) {
+				return Math.floor(Math.random() * (max - min)) + min;
+			},
+
+			newCrys: function() {
+				numCrys1 = this.randomNumber(1-12);
+				numCrys2 = this.randomNumber(1-12);
+				numCrys3 = this.randomNumber(1-12);
+				numCrys4 = this.randomNumber(1-12);
+			},
+
+
+		}
+
+
+
+	</script>
+</body>
+</html>
