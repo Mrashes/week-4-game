@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title></title>
-	<!-- Latest compiled and minified CSS & JS -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ 	<!-- Latest compiled and minified CSS & JS -->
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ 	<script src="assets/javascript/jquery.js"></script>
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/Bootstrap-theme.css"> -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
@@ -20,9 +21,12 @@
 				<div class="row">
 					<h3 class="text-center">Crystals</h3>
 				</div>
-				<!-- treepic -->
-				<div id="ruby" class="img">
-					<img src="assets">
+				<!-- gempic -->
+				<div class="img img-rounded text-center">
+					<img id="diamond" src="assets/images/diamond.jpg">
+					<img id="ruby" src="assets/images/ruby.jpg">
+					<img id="emerald" src="assets/images/emerald.jpg">
+					<img id="opal" src="assets/images/opal.jpg">
 				</div>
 			</div>
 			<div class="col-lg-7 margTop">
@@ -34,58 +38,40 @@
 						</h3>
 					</div>
 					<div class="panel-body text-center">
-						<p>Choose a letter! (letters are chosen by hitting keys)</p>
-						<p>You are allowed 8 missed letters</p>
+						<p>Crystal Game is a whole new ball park</p>
+						<p></p>
 					</div>
 				</div>
-				<!-- current word -->
+				<!-- current goal -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title text-center">
-							Current Word
+							Goal
 						</h3>
 					</div>
-					<div class="panel-body text-center" id="word">
-						_ _ _ _ _ will all go here
+					<div class="panel-body text-center" id="goal">
+						goal score
 					</div>
 				</div>
-				<!-- used letters -->
+				
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title text-center">
-							Used letters
+							Score
 						</h3>
 					</div>
-					<div class="panel-body text-center" id="usedLetters">
-						used letters
-						
+					<div class="panel-body text-center" id="user">
+						your score
 					</div>
 				</div>
-				<!-- used letters -->
-				<div class="row"></div>
-					<div class="col-lg-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title text-center">
-									Total Guesses
-								</h3>
-							</div>
-							<div class="panel-body text-center" id="guess">
-								guess
-							</div>
-						</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Total Wins
+						</h3>
 					</div>
-					<div class="col-lg-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title text-center">
-									Total Wins
-								</h3>
-							</div>
-							<div class="panel-body text-center" id="win">
-								Winner Winner
-							</div>
-						</div>
+					<div class="panel-body text-center" id="wins">
+						Winner Winner
 					</div>
 				</div>
 			</div>
@@ -109,10 +95,10 @@
 		var crystal = {
 			numGoal: 0,
 			numUser: 0,
-			numCrys1: 0,
-			numCrys2: 0,
-			numCrys3: 0,
-			numCrys4: 0,
+			diamond: 0,
+			ruby: 0,
+			emerald: 0,
+			opal: 0,
 			wins: 0,
 
 			randomNumber: function(min, max) {
@@ -120,15 +106,73 @@
 			},
 
 			newCrys: function() {
-				numCrys1 = this.randomNumber(1-12);
-				numCrys2 = this.randomNumber(1-12);
-				numCrys3 = this.randomNumber(1-12);
-				numCrys4 = this.randomNumber(1-12);
+				this.diamond = this.randomNumber(1, 12);
+				this.ruby = this.randomNumber(1, 12);
+				this.emerald = this.randomNumber(1, 12);
+				this.opal = this.randomNumber(1, 12);
+			},
+			//was write but thats a keyword so made it right.  this wrtes the text
+			right: function() {
+				$("#user").text(crystal.numUser)
+				$("#goal").text(crystal.numGoal)
+				$("#wins").text(crystal.wins)
 			},
 
+			newGoal: function() {
+				this.numGoal = this.randomNumber(19, 120)
+			},
 
-		}
+			compare: function() {
+				if (this.numGoal === this.numUser) {
+					setTimeout(function() {
+						crystal.wins++
+						crystal.numUser = 0;
+						crystal.newCrys();
+						crystal.newGoal();
+						crystal.right()
+					}, 500);
 
+				}
+
+				else if (this.numGoal < this.numUser) {
+					setTimeout(function() { 
+						crystal.numUser = 0;
+						crystal.newCrys();
+						crystal.newGoal();
+						crystal.right();
+					}, 500);
+					
+				}
+			}
+		};
+		
+		//assigns numbers when page loads
+		$( document ).ready(function() {
+    		crystal.newCrys();
+		});
+
+		// I should be able to compound these four functions into one
+		$("#diamond").on("click", function() {
+			crystal.numUser += crystal.diamond
+		});
+
+		$("#ruby").on("click", function() {
+			crystal.numUser += crystal.ruby
+		});
+
+		$("#emerald").on("click", function() {
+			crystal.numUser += crystal.emerald
+		});
+
+		$("#opal").on("click", function() {
+			crystal.numUser += crystal.opal
+		});
+
+		// reset for next round and check to see if they won
+		$(document).on("click", function(event) {
+			crystal.right();
+			crystal.compare();
+		});
 
 
 	</script>
